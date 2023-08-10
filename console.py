@@ -30,3 +30,14 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    def do_create(self, arg):
+        """Creates a new instances of abseModel saves it to the JSON file and prints the id."""
+        if not arg:
+            print(""" class name missing """)
+            return
+        try:
+            model = eval(arg)()
+            model.save()
+            print(model.id)
+        except NameError:
+            print(""" class doesn't exist """)
