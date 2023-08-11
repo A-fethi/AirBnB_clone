@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 """Implementating the console for the HBnB project."""
 import cmd
+import shlex
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,7 +32,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instances of abseModel saves it to the JSON file and prints the id."""
+        """Creates a new instances of BaseModel saves
+        it to the JSON file and prints the id.
+        """
         if not arg:
             print("** class name missing **")
             return
@@ -38,9 +44,11 @@ class HBNBCommand(cmd.Cmd):
             print(model.id)
         except NameError:
             print("** class doesn't exist **")
+
     def do_show(self, arg):
         """
-        Prints the string representation of an instance based on the class name and id.
+        Prints the string representation of an instance
+        based on the class name and id.
         """
         arg = arg.split()
         if not arg:
@@ -59,9 +67,11 @@ class HBNBCommand(cmd.Cmd):
                 print(objs[key])
             else:
                 print("** no instance found **")
+
     def do_destroy(self, arg):
         """
-        Deletes an instance based on the class name and (save the change into JSON file).
+        Deletes an instance based on the class name
+        and id (save the change into the JSON file).
         """
         arg = arg.split()
         if not arg:
@@ -81,22 +91,60 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.save()
             else:
                 print("** no instance found **")
-        def do_all(self, arg):
-            """
-            Prints all string representation of all instances based or not on the class name.
-            """
-            objs = models.storage.all()
-            if not arg or arg not in globals():
-                print("** class doesn't exist ")
+
+    def do_all(self, arg):
+        """
+        Prints all string representation of all instances
+        based or not on the class name.
+        """
+        objs = models.storage.all()
+        if not arg or arg not in globals():
+            print("** class doesn't exist **")
+            return
+        else:
+            instances = []
+            for key in objs:
+                if key.split(".")[0] == arg:
+                    instances.append(str(objs[key]))
+            if instances:
+                print(instances)
+
+    def do_update(self, arg):
+        """
+        Updates an instance based on the class name and id by adding
+        or updating attribute (save the change into the JSON file).
+        """
+        objs = models.storage.all()
+        arg = shlex.split(arg)
+        if not arg:
+            print("** class name missing **")
+            return
+        elif arg[0] not in globals():
+            print("** class doesn't exist **")
+            return
+        elif len(arg) < 2:
+            print("** instance id missing **")
+            return
+        else:
+            key = arg[0] + "." + arg[1]
+            if key not in objs:
+                print("** no instance found **")
+                return
+            elif len(arg) < 3:
+                print("** attribute name missing **")
+                return
+            elif len(arg) < 4:
+                print("** value missing **")
                 return
             else:
-                instances = []
-                for key in objs:
-                    if key.split(".")[0] == arg:
-                        instances.append(str(abjs[key]))
-                    if instances:
-                        print(instances)
+                try:
+                    attr_type = type(getattr(objs[key], arg[2]))
+                    arg[3] = attr_type(arg[3])
+                except AttributeError:
+                    pass
+                setattr(objs[key], arg[2], arg[3])
+                objs[key].save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
