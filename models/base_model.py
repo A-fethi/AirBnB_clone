@@ -7,10 +7,9 @@ import models
 
 class BaseModel:
     """Represents the BaseModel of HBnB project."""
+
     def __init__(self, *args, **kwargs):
-        """
-        Initialize a new instance of the BaseModel class.
-        """
+        """Initialize a new instance of the BaseModel class."""
         forma = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for key, value in kwargs.items():
@@ -25,22 +24,16 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """
-        Return a string representation of the BaseModel object.
-        """
+        """Return a string representation of the BaseModel object."""
         return f"[{__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """
-        Update the updated_at attribute with the current datetime
-        """
+        """Update the updated_at attribute with the current datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
 
-
     def to_dict(self):
-        """
-        Convert the BaseModel instance to a dictionary representation.
+        """Convert the BaseModel instance to a dictionary representation.
         Dictionary will contain all keys and values of the instance attribute.
         __class__ key will be added with the class name of the object.
         The created_at and updated_at will be converted to

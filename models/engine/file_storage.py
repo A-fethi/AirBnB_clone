@@ -1,26 +1,36 @@
 #!usr/bin/python3
-"""Defines the FileStorage class."""
+'''
+    Defines the FileStorage class
+'''
 from models.base_model import BaseModel
 import json
 
 
 class FileStorage:
-    """Represents an abstracted storage engine."""
+    '''
+        Represents an abstracted storage engine.
+    '''
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Return the dict __objects."""
+        '''
+            Return the dict __objects.
+        '''
         return self.__objects
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id"""
+        '''
+            Set in __objects obj with key <obj_class_name>.id
+        '''
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
 
     def save(self):
-        """Serialize __objects to the JSON file."""
+        '''
+            Serialize __objects to the JSON file.
+        '''
         data = {}
         for key, value in self.__objects.items():
             data[key] = value.to_dict()
@@ -28,7 +38,9 @@ class FileStorage:
             json.dump(data, f)
 
     def reload(self):
-        """Desrialize the JSON file to __objects"""
+        '''
+            Desrialize the JSON file to __objects
+        '''
         try:
             with open(self.__file_path, "r") as f:
                 objects = json.load(f)
