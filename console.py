@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of an instance
         based on the class name and id.
         """
-        arg = arg.split()
+        arg = shlex.split(arg)
         if not arg:
             print("** class name missing **")
             return
@@ -64,11 +64,15 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             objs = models.storage.all()
+            # storage = FileStorage()
+            # storage.reload()
+            # objs = storage.all()
             key = arg[0] + "." + arg[1]
             if key in objs:
                 print(objs[key])
             else:
                 print("** no instance found **")
+                return
 
     def do_destroy(self, arg):
         """
@@ -86,6 +90,8 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         else:
+            # storage = FileStorage()
+            # storage.reload()
             objs = models.storage.all()
             key = arg[0] + "." + arg[1]
             if key in objs:
@@ -93,20 +99,23 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.save()
             else:
                 print("** no instance found **")
+                return
 
     def do_all(self, arg):
         """
         Prints all string representation of all instances
         based or not on the class name.
         """
+        # storage = FileStorage()
+        # storage.reload()
         objs = models.storage.all()
         if not arg or arg not in globals():
             print("** class doesn't exist **")
             return
         else:
             instances = []
-            for key in objs:
-                if key.split(".")[0] == arg:
+            for key in objs():
+                if key.split(".")[0] == 0:
                     instances.append(str(objs[key]))
             if instances:
                 print(instances)
@@ -116,6 +125,8 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name and id by adding
         or updating attribute (save the change into the JSON file).
         """
+        # storage = FileStorage()
+        # storage.reload()
         objs = models.storage.all()
         arg = shlex.split(arg)
         if not arg:

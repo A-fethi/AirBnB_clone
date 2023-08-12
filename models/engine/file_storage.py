@@ -2,7 +2,6 @@
 '''
     Defines the FileStorage class
 '''
-from models.base_model import BaseModel
 import models
 import json
 
@@ -25,8 +24,9 @@ class FileStorage:
         '''
             Set in __objects obj with key <obj_class_name>.id
         '''
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        key = f"{str(obj.__class__.__name__)}.{str(obj.id)}"
+        dict_val = obj
+        FileStorage.__objects[key] = dict_val
 
     def save(self):
         '''
