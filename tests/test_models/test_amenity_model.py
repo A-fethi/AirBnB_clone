@@ -35,4 +35,3 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         name_value = getattr(new_amenity, "name")
         self.assertIsInstance(name_value, str)
-

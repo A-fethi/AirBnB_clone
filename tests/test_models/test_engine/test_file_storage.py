@@ -99,6 +99,5 @@ class testFileStorage(unittest.TestCase):
         try:
             self.storage.reload()
             self.assertTrue(True)
-        except:
+        except FileNotFoundError:
             self.assertTrue(False)
-

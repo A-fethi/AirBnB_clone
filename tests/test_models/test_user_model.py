@@ -66,4 +66,3 @@ class TestUser(unittest.TestCase):
         new = User()
         name = getattr(new, "password")
         self.assertIsInstance(name, str)
-
