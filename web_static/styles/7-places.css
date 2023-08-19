@@ -1,0 +1,27 @@
+article {
+	width: 390px;
+	padding: 20px;
+	margin: 20px;
+	border: 1px solid #FF5A5F;
+	text-align: center;
+	float: left;
+}
+
+article h2 {
+	font-size: 30px;
+	margin: -0px;
+}
+
+.places_title h1 {
+	font-size: 30px;
+	margin-bottom: -10px;
+	padding-left: 15px;
+}
+
+.articles {
+	padding-left: 30px;
+}
+
+.one {
+	transform: translate(55%, -5%);
+}
