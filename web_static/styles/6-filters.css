@@ -25,7 +25,7 @@
 }
 
 .container .filters .locations,
-.container .filters .amenities {
+.container .filters .amenitie {
 	height: 100%;
 	width: 25%;
 }
@@ -35,13 +35,13 @@
 }
 
 .container .filters .locations h3,
-.container .filters .amenities h3 {
+.container .filters .amenitie h3 {
 	font-weight: 600;
 	padding-left: 40px;
 }
 
 .container .filters .locations h4,
-.container .filters .amenities h4 {
+.container .filters .amenitie h4 {
 	font-weight: 400;
 	font-size: 14px;
 	padding-left: 40px;
@@ -49,7 +49,7 @@
 }
 
 .container .filters .locations .popover,
-.container .filters .amenities .popover {
+.container .filters .amenitie .popover {
 	background-color: #FAFAFA;
 	border: #DDDDDD 1px solid;
 	border-radius: 4px;
@@ -59,7 +59,7 @@
 }
 
 .container .filters .locations:hover > .popover,
-.container .filters .amenities:hover > .popover {
+.container .filters .amenitie:hover > .popover {
 	visibility: visible;
 }
 
@@ -73,7 +73,7 @@
 	margin-left: -40px;
 }
 
-.container .filters .amenities ul {
+.container .filters .amenitie ul {
 	padding-block: 30px;
 	width: 100%;
 }
